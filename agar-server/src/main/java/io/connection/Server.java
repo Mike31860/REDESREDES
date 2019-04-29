@@ -150,12 +150,13 @@ public class Server {
 		String respuesta="";
 		String header = "";
 		if (data.contains("join")) {
-			String nick = data.split(":")[1].replace("\n", "");
+		//	String nick = data.split(":")[1].replace("@", "");
+			String nick = data.split(":")[1];
 			header = "welcome:" + nick;
 			connectionsUDP.put(nick, conn);
 			
 		   respuesta=sendInfoCellsUDP(header, conn);
-			
+			System.out.println(respuesta);
 
 		}
 
@@ -245,7 +246,7 @@ public class Server {
 					info += ";"+nick;
 				}
 
-				info += "\n";
+				info += "@";
 				
 				
 			}
@@ -253,7 +254,7 @@ public class Server {
 			if(co==conn)
 			{
 				String informa=info;
-				info=header+"\n"+informa;
+				info=header+"@"+informa;
 				
 			}
 

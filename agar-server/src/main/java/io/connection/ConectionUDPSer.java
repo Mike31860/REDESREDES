@@ -35,22 +35,20 @@ public class ConectionUDPSer extends Thread {
      @Override
 		public synchronized void run() {
 
-    	 try {
+    	
              System.out.println("Iniciado el servidor UDP");
        
         
-//
-//             while (true) {
-                  
+             while (true) {
+            	 try {
+             byte[] RecogerServidor_bytes = new byte[1024];
              
-               peticion = new DatagramPacket(buffer, buffer.length);
-                  
-             
+               peticion = new DatagramPacket(RecogerServidor_bytes,1024);
                  socketUDP.receive(peticion);
+                 
                  System.out.println("Recibo la informacion del cliente");
                   
-         
-                String mensaje1 = new String(peticion.getData());
+                String mensaje1 = new String(RecogerServidor_bytes).trim();
                 System.out.println(mensaje1);
   
             
@@ -58,9 +56,8 @@ public class ConectionUDPSer extends Thread {
                  InetAddress direccion = peticion.getAddress();
   
                 String otro= servidor.processUDP(mensaje1, this);
-                String elmejor="hola@esta";
           
-                	 buffer = elmejor.getBytes();
+                	 buffer = otro.getBytes();
                      System.out.println(otro);
                 	  
                
@@ -71,21 +68,18 @@ public class ConectionUDPSer extends Thread {
                      socketUDP.send(respuesta);
                 	
                 	
-				
-                
-               //  socketUDP.close();
-                  
-//             }
+		       
   
          } catch (SocketException ex) {
            ex.getLocalizedMessage();
          } catch (IOException ex) {
         	 ex.getLocalizedMessage();
          }
+     
 
 		}
 
-
+     }
 
 	public String getMensaje() {
 		return mensaje;

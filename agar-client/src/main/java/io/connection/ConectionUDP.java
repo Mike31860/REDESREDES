@@ -39,14 +39,13 @@ public class ConectionUDP extends Thread {
 		 
 		 boolean es=false;
 		
-			//while (true) {
+			while (true) {
 				
 				  try {
 					  
 					
 			            InetAddress direccionServidor = InetAddress.getByName("localhost");
-			 
-			          
+
 			            DatagramSocket socketUDP = new DatagramSocket();
 			 
 			            String mensaje = "join:" + client.getUserName();
@@ -54,30 +53,28 @@ public class ConectionUDP extends Thread {
 			           
 			            buffer = mensaje.getBytes();
 			 
-			           
+			            DatagramPacket servPaquete;
 			            DatagramPacket pregunta = new DatagramPacket(buffer, buffer.length, direccionServidor, PUERTO_SERVIDOR);
 			 
 			          
 			            System.out.println("Envio el datagrama");
+			            System.out.println(mensaje);
 			            socketUDP.send(pregunta);
-			 
+			            byte[] RecogerServidor_bytes = new byte[1024];
 			           
-			            DatagramPacket peticion = new DatagramPacket(buffer, buffer.length);
-			 
+			     
+			            servPaquete = new DatagramPacket(RecogerServidor_bytes,1024);
+			            socketUDP.receive(servPaquete);
 			          
-			            socketUDP.receive(peticion);
 			            System.out.println("Recibo la peticion");
 			 
-			           
-			            mensaje = new String(peticion.getData());
-			            System.out.println(mensaje);
-			 
-			            //cierro el socket
+			           String cadenaMensaje = new String(RecogerServidor_bytes).trim();
+			   
+			            System.out.println(cadenaMensaje);
+			            client.process(cadenaMensaje, es);
 			            
 			           es=true;
-			 
-			            //cierro el socket
-			           // socketUDP.close();
+
 			 
 			        } catch (SocketException ex) {
 			        	ex.getLocalizedMessage();
@@ -88,7 +85,7 @@ public class ConectionUDP extends Thread {
 			        }
 
 
-			//}
+			}
 
 		}
 	
