@@ -106,9 +106,9 @@ public class Client {
 		} else {
 
 			if (!es) {
-				game.setState(State.Join);
+				game.setState(State.streaming);
 			} else {
-				game.setState(State.Playing);
+				game.setState(State.streaming2);
 			}
 
 			String[] cellsInfo = data.split("@");

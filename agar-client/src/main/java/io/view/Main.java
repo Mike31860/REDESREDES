@@ -34,6 +34,8 @@ public class Main {
 	private Stage stage;
 
 	private GameView gameView;
+	
+	private GameViewStreaming gameViewStreaming;
 
 	/**
 	 * @return the nameTxt
@@ -147,9 +149,33 @@ public class Main {
 		}
 
 	}
+	
+	public void showGameViewStreaming(Game game) {
+		FXMLLoader loader = new FXMLLoader();
+		try {
+
+			AnchorPane pane = loader.load(getClass().getResourceAsStream("../view/gameStreaming.fxml"));
+			gameViewStreaming = new GameViewStreaming();
+			gameViewStreaming.init(pane, game);
+			Stage stage = new Stage();
+			Scene scene = new Scene(pane);
+			stage.setScene(scene);
+			gameViewStreaming.setStage(stage);
+			stage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
 	public void drawGame() {
 		gameView.dibujar();
+
+	}
+	
+	public void drawGameStreaming() {
+		gameViewStreaming.dibujar();
 
 	}
 

@@ -131,6 +131,19 @@ public class Controller extends Application implements IObserver{
 				
 			});
     		break;
+    	case streaming:
+    		Platform.runLater(new Runnable() {
+				
+				@Override
+				public void run() {
+		    		main.hide();	
+		    		main.showGameViewStreaming(client.getGame());
+		    		main.drawGameStreaming();
+				}
+
+				
+			});
+    		break;
 		case Playing:
 			
 			Platform.runLater(new Runnable() {
@@ -138,6 +151,17 @@ public class Controller extends Application implements IObserver{
 				@Override
 				public void run() {
 					main.drawGame();					
+				}
+			});
+			
+			break;
+		case streaming2:
+			
+			Platform.runLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					main.drawGameStreaming();					
 				}
 			});
 			
