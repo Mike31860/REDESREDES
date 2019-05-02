@@ -35,7 +35,7 @@ public class Connection extends Thread {
 			String data = "";
 			try {
 				while (in.ready()) {
-					data += in.readLine() + "\n";
+					data += in.readLine() + "@";
 				}
 
 				if (!data.isEmpty()) {

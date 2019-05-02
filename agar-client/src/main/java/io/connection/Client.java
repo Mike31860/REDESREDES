@@ -187,7 +187,7 @@ public class Client {
 				game.setState(State.Playing);
 			}
 
-			String[] cellsInfo = data.split("\n");
+			String[] cellsInfo = data.split("@");
 			ArrayList<Cell> cells = new ArrayList<Cell>();
 			for (int i = 0; i < cellsInfo.length; i++) {
 				String line = cellsInfo[i];

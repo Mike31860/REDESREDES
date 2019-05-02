@@ -6,15 +6,33 @@ import java.io.FileNotFoundException;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
-public class music {
+public class music extends Thread{
 	
-	public static void main(String[] args) throws FileNotFoundException,
-    JavaLayerException {
+	private String ruta;
+	
+	public music() {
+		
+	}
+	
+	public void run() {
+		
+		Player apl = null;
+		try {
+			apl = new Player(new FileInputStream("./src/barbie.mp3"));
+		} catch (FileNotFoundException | JavaLayerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			apl.play();
+		} catch (JavaLayerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 
-	Player apl = new Player(new FileInputStream("./src/barbie.mp3"));
 
-	apl.play();
-
-}
 
 }

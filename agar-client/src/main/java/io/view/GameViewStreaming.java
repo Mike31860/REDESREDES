@@ -1,12 +1,15 @@
 package io.view;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import io.model.Cell;
 import io.model.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
@@ -20,7 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class GameViewStreaming {
+public class GameViewStreaming implements Initializable{
 
     @FXML
     private Label cancionTxt;
@@ -62,6 +65,8 @@ public class GameViewStreaming {
 
     @FXML
     void elegirBut(ActionEvent event) {
+    	
+    	
 
     }
 
@@ -159,6 +164,14 @@ public class GameViewStreaming {
 	public void setStage(Stage stage) {
 		// TODO Auto-generated method stub
 		this.stage = stage;
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		songsList.getItems().add("Barbie girl");
+		
+		
 	}
     
 }

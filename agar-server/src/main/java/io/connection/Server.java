@@ -27,6 +27,7 @@ public class Server {
 	private Hashtable<String, ConectionUDPSer> connectionsUDP;
 	private int port;
 	private Random random;
+	private ConectionUDPSer conectar;
 
 	/**
 	 * With default port 8888
@@ -84,7 +85,7 @@ public class Server {
 			 socketUDP.setBroadcast(true);
 			 byte[] buffer = new byte[1024];
 			 
-			 ConectionUDPSer conectar = new ConectionUDPSer(this, socketUDP, buffer);
+			 conectar = new ConectionUDPSer(this, socketUDP, buffer);
 			 conectar.start();
 			while (true) {
 				Socket socket = serverSocket.accept();
@@ -107,7 +108,7 @@ public class Server {
 		
 		String header = "";
 		if (data.contains("join")) {
-			String nick = data.split(":")[1].replace("\n", "");
+			String nick = data.split(":")[1].replace("@", "");
 			header = "welcome:" + nick;
 			conn.setNickName(nick);
 			addUserCell(conn, nick);
@@ -120,7 +121,7 @@ public class Server {
 			// move:nick=direction (up,down,left,right)
 			String[] moveInfo = data.split(":")[1].split("=");
 			String nick = moveInfo[0];
-			String direction = moveInfo[1].replace("\n", "");
+			String direction = moveInfo[1].replace("@", "");
 
 			int index = users.get(nick);
 			Cell cell = cells.get(index);
@@ -153,18 +154,34 @@ public class Server {
 		//	String nick = data.split(":")[1].replace("@", "");
 			String nick = data.split(":")[1];
 			header = "welcome:" + nick;
+		//	if(!connectionsUDP.containsKey(nick)) {
 			connectionsUDP.put(nick, conn);
+		//	}
 			
 		   respuesta=sendInfoCellsUDP(header, conn);
-			System.out.println(respuesta);
+			//System.out.println(respuesta);
 
 		}
-
+		
 	 return respuesta;
 
 	}
 
-	
+	public synchronized void JoinUDP(String data, ConectionUDPSer conn) {
+		
+		String header = "";
+		
+		if (data.contains("join")) {
+		//	String nick = data.split(":")[1].replace("@", "");
+			String nick = data.split(":")[1];
+			header = "welcome:" + nick;
+			if(!connectionsUDP.containsKey(nick)) {
+			connectionsUDP.put(nick, conn);
+			}
+		}
+		
+		
+	}
 	
 	
 	
@@ -231,7 +248,6 @@ public class Server {
 		// TODO Auto-generated method stub
 		String info = "";
 		for (ConectionUDPSer conn : connectionsUDP.values()) {
-
 			
 
 			for (Integer id : cells.keySet()) {
@@ -287,7 +303,7 @@ public class Server {
 					info += ";"+nick;
 				}
 
-				info += "\n";
+				info += "@";
 				
 				
 			}
@@ -296,9 +312,15 @@ public class Server {
 			{
 				
 				String informa=info;
-				info=header+"\n"+informa;
+				info=header+"@"+informa;
 				
 			}
+			
+//			for (ConectionUDPSer udpcon : connectionsUDP.values()) {
+//				
+//				udpcon.setMensaje(info);	
+//			}
+//			
             
 			conn.write(info);
 			

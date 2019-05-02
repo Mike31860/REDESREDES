@@ -54,11 +54,12 @@ public class ConectionUDPSer extends Thread {
             
                  int puertoCliente = peticion.getPort();
                  InetAddress direccion = peticion.getAddress();
-  
-                String otro= servidor.processUDP(mensaje1, this);
-          
-                	 buffer = otro.getBytes();
-                     System.out.println(otro);
+               //  servidor.JoinUDP(mensaje1, this);
+             String otro = servidor.processUDP(mensaje1, this);
+             buffer = otro.getBytes();
+             
+                	// buffer = mensaje.getBytes();
+                     //System.out.println(mensaje);
                 	  
                
                      DatagramPacket respuesta = new DatagramPacket(buffer, buffer.length, direccion, puertoCliente);
@@ -66,6 +67,7 @@ public class ConectionUDPSer extends Thread {
                 
         
                      socketUDP.send(respuesta);
+                     Thread.sleep(25);
                 	
                 	
 		       
@@ -74,7 +76,10 @@ public class ConectionUDPSer extends Thread {
            ex.getLocalizedMessage();
          } catch (IOException ex) {
         	 ex.getLocalizedMessage();
-         }
+         } catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
      
 
 		}

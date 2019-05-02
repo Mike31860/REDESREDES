@@ -58,7 +58,7 @@ public class ConectionUDP extends Thread {
 			 
 			          
 			            System.out.println("Envio el datagrama");
-			            System.out.println(mensaje);
+			            //System.out.println(mensaje);
 			            socketUDP.send(pregunta);
 			            byte[] RecogerServidor_bytes = new byte[1024];
 			           
@@ -70,7 +70,7 @@ public class ConectionUDP extends Thread {
 			 
 			           String cadenaMensaje = new String(RecogerServidor_bytes).trim();
 			   
-			            System.out.println(cadenaMensaje);
+			            //System.out.println(cadenaMensaje);
 			            client.process(cadenaMensaje, es);
 			            
 			           es=true;
