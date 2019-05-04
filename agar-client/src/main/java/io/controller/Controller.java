@@ -18,13 +18,14 @@ import io.view.Main;
 /**
  * Controller
  */
-public class Controller extends Application implements IObserver{
+public class Controller implements IObserver{
 
     private Main main;
     private Client client;
+    private Stage stage = new Stage();
 
-    @Override
-    public void start(Stage stage) throws Exception {
+    
+    public void open() throws Exception {
         
         FXMLLoader loader = new FXMLLoader();
         
@@ -188,7 +189,7 @@ public class Controller extends Application implements IObserver{
 		}
     }
     
-    public static void main(String[] args) {
-		launch(args);
-	}
+//    public static void main(String[] args) {
+//		launch(args);
+//	}
 }
