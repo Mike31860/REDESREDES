@@ -14,8 +14,8 @@ import io.model.Cell;
  */
 public class Server {
 
-	public static final int WIDTH = 455;
-	public static final int HEIGHT = 455;
+	public static final int WIDTH = 1000;
+	public static final int HEIGHT = 675;
 
 	private ServerSocket serverSocket;
 
@@ -51,7 +51,7 @@ public class Server {
 	}
 
 	private void initCells() {
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 100; i++) {
 
 			// if x = 0 or y=0 then the circle would be in 0,y or x,0 so,
 			// circle shape doesn't draw correctly.

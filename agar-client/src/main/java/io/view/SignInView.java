@@ -50,6 +50,8 @@ public class SignInView {
     	
     	Controller controller = new Controller();
     	controller.open();
+    	Stage stageAct = (Stage) SignInButton.getScene().getWindow();
+		stageAct.close();
     	
     	
     	

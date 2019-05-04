@@ -1,5 +1,6 @@
 package io.controller;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 
@@ -46,8 +47,9 @@ public class Controller implements IObserver{
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();
-        
         main.setStage(stage);
+       
+        
     }
     
     private EventHandler<KeyEvent> getGameKeyHandler() {
@@ -79,8 +81,6 @@ public class Controller implements IObserver{
     	
 		
 	}
-    
-    
 
     public void play(){
         String userName = main.getNameTxt();
@@ -123,8 +123,13 @@ public class Controller implements IObserver{
 				
 				@Override
 				public void run() {
-		    		main.hide();	
-		    		main.showGameView(client.getGame());
+//		    		main.hide();	
+		    		try {
+						main.showGameView(client.getGame());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 		    		main.getGameView().setKeyHandler(getGameKeyHandler());
 		    		main.drawGame();
 				}
@@ -137,8 +142,13 @@ public class Controller implements IObserver{
 				
 				@Override
 				public void run() {
-		    		main.hide();	
-		    		main.showGameViewStreaming(client.getGame());
+//		    		main.hide();	
+		    		try {
+						main.showGameViewStreaming(client.getGame());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 		    		main.drawGameStreaming();
 				}
 

@@ -11,6 +11,7 @@ import io.model.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -131,7 +132,9 @@ public class Main {
 		return stage;
 	}
 
-	public void showGameView(Game game) {
+	public void showGameView(Game game) throws IOException {
+		
+	
 		FXMLLoader loader = new FXMLLoader();
 		try {
 
@@ -143,6 +146,8 @@ public class Main {
 			stage.setScene(scene);
 			gameView.setStage(stage);
 			stage.show();
+			Stage stageAct = (Stage) get();
+			stageAct.close();
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -151,7 +156,8 @@ public class Main {
 
 	}
 	
-	public void showGameViewStreaming(Game game) {
+	public void showGameViewStreaming(Game game) throws IOException {
+
 		FXMLLoader loader = new FXMLLoader();
 		try {
 
@@ -163,11 +169,21 @@ public class Main {
 			stage.setScene(scene);
 			gameViewStreaming.setStage(stage);
 			stage.show();
+			Stage stageAct = (Stage) get();
+			stageAct.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+	}
+	
+	public Stage get() {
+		
+		Stage stageAct = (Stage) playBtn2.getScene().getWindow();
+		//stageAct.close();
+		return stageAct;
+		
 	}
 
 	public void drawGame() {

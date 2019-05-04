@@ -15,6 +15,7 @@ import io.model.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
@@ -29,7 +30,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class GameView {
+public class GameView implements Initializable{
 
 	@FXML
 	private Button select;
@@ -59,9 +60,6 @@ public class GameView {
 	public void init(Parent parent, Game game) {
 		this.parent = parent;
 
-		
-		
-		
 		for (int i = 0; i < parent.getChildrenUnmodifiable().size(); i++) {
 
 			Node node = parent.getChildrenUnmodifiable().get(i);
@@ -247,7 +245,7 @@ public class GameView {
 
     }
 	
-public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		songList.getItems().add("Barbie girl");
 		songList.getItems().add("Sálvame");
