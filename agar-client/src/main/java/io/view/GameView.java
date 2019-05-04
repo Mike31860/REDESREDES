@@ -1,12 +1,15 @@
 package io.view;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import io.connection.music;
 import io.model.Cell;
 import io.model.Game;
 import javafx.event.ActionEvent;
@@ -34,7 +37,7 @@ public class GameView {
 	private JTextArea text;
 	
 	@FXML
-    private ComboBox<?> songList;
+    private ComboBox<String> songList;
 
     @FXML
     private Label songTxt;
@@ -50,6 +53,8 @@ public class GameView {
 	private Parent parent;
 
 	private Stage stage;
+	
+	private music musica;
 
 	public void init(Parent parent, Game game) {
 		this.parent = parent;
@@ -195,8 +200,62 @@ public class GameView {
 
 	}
 	
+	public String seleccion() {
+    	
+    	String seleccion = songList.getSelectionModel().getSelectedItem();
+    	String respuesta = "";
+    	
+    	if(seleccion.equals("Barbie girl")) {
+    		
+    		respuesta = "barbie";
+    		
+    	} else if(seleccion.equals("Sálvame")) {
+    		
+    		respuesta = "salvame";
+    		
+    	} else if(seleccion.equals("Breaking free")) {
+    		
+    		respuesta = "breakingfree";
+    		
+    	} else if(seleccion.equals("Highway to hell")) {
+    		
+    		respuesta = "highwaytohell";
+    		
+    	} else if(seleccion.equals("Back in black")) {
+    		
+    		respuesta = "backinblack";
+    		
+    	} else if(seleccion.equals("Don't stop me now")) {
+    		
+    		respuesta = "salvame";
+    		
+    	}
+    	
+    	return respuesta;
+    	
+    }
+	
+	@FXML
 	void selectBut(ActionEvent event) {
+		
+		String respuesta = seleccion();
+    	musica = new music();
+    	musica.setMensaje(respuesta);
+    	System.out.println("Antes del hilo");
+    	//musica.pausar();
+    	musica.start();
 
     }
+	
+public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		songList.getItems().add("Barbie girl");
+		songList.getItems().add("Sálvame");
+		songList.getItems().add("Breaking free");
+		songList.getItems().add("Highway to hell");
+		songList.getItems().add("Back in black");
+		songList.getItems().add("Don't stop me now");
+
+	}
 
 }

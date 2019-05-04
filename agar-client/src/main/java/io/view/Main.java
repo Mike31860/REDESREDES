@@ -143,6 +143,7 @@ public class Main {
 			stage.setScene(scene);
 			gameView.setStage(stage);
 			stage.show();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

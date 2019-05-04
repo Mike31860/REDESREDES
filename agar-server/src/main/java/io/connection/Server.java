@@ -25,6 +25,8 @@ public class Server {
 	private int currentId;
 	private Hashtable<String, Connection> connections;
 	private Hashtable<String, ConectionUDPSer> connectionsUDP;
+	private MusicaServ music;
+	
 	private int port;
 	private Random random;
 	private ConectionUDPSer conectar;
@@ -80,13 +82,19 @@ public class Server {
 	 */
 	public void init() {
 		try {
-			serverSocket = new ServerSocket(port);
+			serverSocket = new ServerSocket(port,5);
 			 DatagramSocket socketUDP = new DatagramSocket(5000);
 			 socketUDP.setBroadcast(true);
 			 byte[] buffer = new byte[1024];
-			 
 			 conectar = new ConectionUDPSer(this, socketUDP, buffer);
 			 conectar.start();
+			 
+			 DatagramSocket socketMusic = new DatagramSocket(5098);
+			 byte[] bufferM = new byte[1024];
+			 socketMusic.setBroadcast(true);
+			 music = new MusicaServ(this, socketMusic, bufferM);
+			 music.start();
+			 
 			while (true) {
 				Socket socket = serverSocket.accept();
 				
@@ -166,6 +174,41 @@ public class Server {
 	 return respuesta;
 
 	}
+	
+	public String ruta(String data) {
+		
+		System.out.println("Hola servidor");
+		String respuesta = "";
+		
+		if(data.equals("barbie")) {
+			
+			respuesta = "./src/barbie.mp3";
+			
+		} else if(data.equals("breakingfree")) {
+			
+			respuesta = "./src/breakingfree.mp3";
+			
+		} else if(data.equals("salvame")) {
+			
+			respuesta = "./src/salvame.mp3";
+			
+		} else if(data.equals("highwaytohell")) {
+			
+			respuesta = "./src/highwaytohell.mp3";
+			
+		} else if(data.equals("backinblack")) {
+			
+			respuesta = "./src/backinblack.mp3";
+			
+		} else if(data.equals("dontstopmenow")) {
+			
+			respuesta = "./src/dontstopmenow.mp3";
+			
+		}
+			
+		return respuesta;	
+		
+	}
 
 	public synchronized void JoinUDP(String data, ConectionUDPSer conn) {
 		
@@ -240,7 +283,7 @@ public class Server {
 		connections.put(nick, conn);
 		currentId += 1;
 
-		System.out.println("Joined : " + nick + " with cell in :" + cell.getX() + "," + cell.getY());
+		//System.out.println("Joined : " + nick + " with cell in :" + cell.getX() + "," + cell.getY());
 
 	}
 	

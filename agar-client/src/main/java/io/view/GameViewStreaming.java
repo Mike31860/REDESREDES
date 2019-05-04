@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import io.connection.music;
 import io.model.Cell;
 import io.model.Game;
 import javafx.event.ActionEvent;
@@ -57,6 +58,7 @@ public class GameViewStreaming implements Initializable{
 	private Stage stage;
 	
 	private Parent parent;
+	private music musica;
     
     @FXML
     void enviarBut(ActionEvent event) {
@@ -64,10 +66,55 @@ public class GameViewStreaming implements Initializable{
     }
 
     @FXML
-    void elegirBut(ActionEvent event) {
+    void elegirBut(ActionEvent event) throws InterruptedException {
+    	
+    	
+    	String respuesta = seleccion();    	
+    	musica = new music();
+    	musica.setMensaje(respuesta);
+    	System.out.println("Antes del hilo");  
+    	//musica.pausar();
+    	
+    	
+    	musica.start();
     	
     	
 
+    }
+    
+    public String seleccion() {
+    	
+    	String seleccion = songsList.getSelectionModel().getSelectedItem();
+    	String respuesta = "";
+    	
+    	if(seleccion.equals("Barbie girl")) {
+    		
+    		respuesta = "barbie";
+    		
+    	} else if(seleccion.equals("Sálvame")) {
+    		
+    		respuesta = "salvame";
+    		
+    	} else if(seleccion.equals("Breaking free")) {
+    		
+    		respuesta = "breakingfree";
+    		
+    	} else if(seleccion.equals("Highway to hell")) {
+    		
+    		respuesta = "highwaytohell";
+    		
+    	} else if(seleccion.equals("Back in black")) {
+    		
+    		respuesta = "backinblack";
+    		
+    	} else if(seleccion.equals("Don't stop me now")) {
+    		
+    		respuesta = "dontstopmenow";
+    		
+    	}
+    	
+    	return respuesta;
+    	
     }
 
     public void dibujar() {
@@ -170,8 +217,12 @@ public class GameViewStreaming implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		songsList.getItems().add("Barbie girl");
-		
-		
+		songsList.getItems().add("Sálvame");
+		songsList.getItems().add("Breaking free");
+		songsList.getItems().add("Highway to hell");
+		songsList.getItems().add("Back in black");
+		songsList.getItems().add("Don't stop me now");
+
 	}
     
 }

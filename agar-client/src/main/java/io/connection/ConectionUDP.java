@@ -43,7 +43,6 @@ public class ConectionUDP extends Thread {
 				
 				  try {
 					  
-					
 			            InetAddress direccionServidor = InetAddress.getByName("localhost");
 
 			            DatagramSocket socketUDP = new DatagramSocket();
@@ -57,7 +56,7 @@ public class ConectionUDP extends Thread {
 			            DatagramPacket pregunta = new DatagramPacket(buffer, buffer.length, direccionServidor, PUERTO_SERVIDOR);
 			 
 			          
-			            System.out.println("Envio el datagrama");
+			            //System.out.println("Envio el datagrama");
 			            //System.out.println(mensaje);
 			            socketUDP.send(pregunta);
 			            byte[] RecogerServidor_bytes = new byte[1024];
@@ -66,7 +65,7 @@ public class ConectionUDP extends Thread {
 			            servPaquete = new DatagramPacket(RecogerServidor_bytes,1024);
 			            socketUDP.receive(servPaquete);
 			          
-			            System.out.println("Recibo la peticion");
+			           // System.out.println("Recibo la peticion");
 			 
 			           String cadenaMensaje = new String(RecogerServidor_bytes).trim();
 			   
