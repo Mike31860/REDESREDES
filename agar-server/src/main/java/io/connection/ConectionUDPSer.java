@@ -46,10 +46,10 @@ public class ConectionUDPSer extends Thread {
                peticion = new DatagramPacket(RecogerServidor_bytes,1024);
                  socketUDP.receive(peticion);
                  
-                 System.out.println("Recibo la informacion del cliente");
+           //      System.out.println("Recibo la informacion del cliente");
                   
                 String mensaje1 = new String(RecogerServidor_bytes).trim();
-                System.out.println(mensaje1);
+            //    System.out.println(mensaje1);
   
             
                  int puertoCliente = peticion.getPort();

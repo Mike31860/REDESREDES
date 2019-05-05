@@ -78,6 +78,8 @@ public class GameViewStreaming implements Initializable{
 	public void conectarChat() throws Exception {
 		chat = new ConnectionChat(this);
 		chat.start();
+		System.out.println("Hilo chat");
+		
 	}
 
     @FXML

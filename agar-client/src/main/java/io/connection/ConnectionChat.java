@@ -31,6 +31,7 @@ public class ConnectionChat extends Thread{
 			try {
 				while (in.ready()) {
 					data = in.readLine();
+					
 					//client.processTCP(data, true);
 					game.append(data);
 				}

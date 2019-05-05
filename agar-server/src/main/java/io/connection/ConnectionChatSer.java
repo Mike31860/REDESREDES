@@ -33,6 +33,7 @@ public class ConnectionChatSer extends Thread{
 			try {
 				while (in.ready()) {
 					data = in.readLine();
+					System.out.println(data);
 					server.processChat(data);
 					
 				}
