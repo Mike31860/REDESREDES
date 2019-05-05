@@ -39,6 +39,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextArea fx:id="ChatArea" layoutX="1011.0" layoutY="49.0" prefHeight="489.0" prefWidth="265.0" />
+      <TextArea fx:id="ChatArea" editable="false" layoutX="1011.0" layoutY="49.0" prefHeight="489.0" prefWidth="265.0" />
    </children>
 </AnchorPane>

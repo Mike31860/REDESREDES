@@ -88,6 +88,7 @@ public class Controller implements IObserver{
         client = new Client();
         client.setUserName(userName);
         client.setObserver(this);
+ 
         try {
             client.connect();
 		} catch (Exception e) {
@@ -102,8 +103,10 @@ public class Controller implements IObserver{
         client = new Client();
         client.setUserName(userName);
         client.setObserver(this);
+
         try {
             client.conectarStreaming();
+         
 		} catch (Exception e) {
 			main.setMessage("No se puede conectar con el servidor");
 		}
@@ -116,7 +119,7 @@ public class Controller implements IObserver{
     
 
     @Override
-    public void callback(){
+    public void callback(String mensaje){
     	switch (client.getGame().getState()) {
     	case Join:
     		Platform.runLater(new Runnable() {
@@ -144,7 +147,7 @@ public class Controller implements IObserver{
 				public void run() {
 //		    		main.hide();	
 		    		try {
-						main.showGameViewStreaming(client.getGame());
+						main.showGameViewStreaming(client.getGame(), client.getUserName());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -177,7 +180,17 @@ public class Controller implements IObserver{
 			});
 			
 			break;
-
+		case Chat:
+			
+			Platform.runLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					main.appendChat(mensaje);					
+				}
+			});
+			
+			break;
 		case Lost:
 			Platform.runLater(new Runnable() {
 				

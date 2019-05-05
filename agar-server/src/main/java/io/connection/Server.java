@@ -18,7 +18,9 @@ public class Server {
 	public static final int HEIGHT = 675;
 
 	private ServerSocket serverSocket;
-
+	private ServerSocket serverSocketChat;
+	
+	private ArrayList<ConnectionChatSer> chats;
 	private Hashtable<String, Integer> users;
 	private Hashtable<Integer, String> indexUsers;
 	private Hashtable<Integer, Cell> cells;
@@ -45,6 +47,7 @@ public class Server {
 		this.users = new Hashtable<String, Integer>();
 		connections = new Hashtable<String, Connection>();
 		connectionsUDP = new Hashtable<String, ConectionUDPSer>();
+		chats = new ArrayList<ConnectionChatSer>();
 		random = new Random();
 
 		initCells();
@@ -95,12 +98,17 @@ public class Server {
 			 music = new MusicaServ(this, socketMusic, bufferM);
 			 music.start();
 			 
+			 serverSocketChat = new ServerSocket(5600);
+			 
 			while (true) {
 				Socket socket = serverSocket.accept();
-				
 				Connection conn = new Connection(this, socket);
-				
 				conn.start();
+				
+				Socket socketC = serverSocketChat.accept();
+				ConnectionChatSer chat = new ConnectionChatSer(this, socketC);
+				chats.add(chat);
+				chat.start();
 				
 			}
 		} catch (Exception e) {
@@ -374,6 +382,14 @@ public class Server {
 		//sendInfoCellsUDP(header, conn);
 		
 		
+	}
+	
+	
+	public void processChat(String data) {
+		
+		for(int i = 0; i < chats.size(); i++) {
+			chats.get(i).write(data);
+		}		
 	}
 
 	public static void main(String[] args) {

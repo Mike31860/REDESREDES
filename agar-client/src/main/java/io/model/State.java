@@ -6,7 +6,7 @@ public enum State{
 
     Lost,
     Playing,
-    Error, Join, streaming,streaming2 ;
+    Error, Join, streaming,streaming2, Chat ;
     
     private String message;
 

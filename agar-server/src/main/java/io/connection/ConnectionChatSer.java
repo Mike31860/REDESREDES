@@ -6,67 +6,52 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-/**
- * Connection
- */
-public class Connection extends Thread {
-
-	private Client client;
+public class ConnectionChatSer extends Thread{
+	
+	private Server server;
 	private Socket socket;
 	private PrintWriter out;
 	private BufferedReader in;
+	private String nick;
 
-	public Connection(Client client) throws Exception {
+	public ConnectionChatSer(Server server, Socket socket) throws Exception {
 
-		this.client = client;
-		socket = new Socket(client.getHost(), client.getPort());
+		this.server = server;
+		this.socket = socket;
 		out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
 		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 	}
-
-	private void joinToGame() {
-		out.println("join:" + client.getUserName());
-	}
-
+	
 	@Override
 	public synchronized void run() {
-
-		// REVIEW: To join to the game
-
-		joinToGame();
-
+		
+		
 		while (socket.isConnected()) {
 
 			String data = "";
 			try {
 				while (in.ready()) {
-					data += in.readLine() + "@";
+					data = in.readLine();
+					server.processChat(data);
+					
 				}
+//
+//				if (!data.isEmpty()) {
+//				//	server.process(data, this);
+//				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
-			if (!data.isEmpty()) {
-				client.processTCP(data, false);
-			}
-
 		}
-
+		
+		
 	}
-
-	public void close() {
-		try {
-			socket.close();
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-	}
-
+	
 	public void write(String message) {
 		out.println(message);
 	}
+
 }

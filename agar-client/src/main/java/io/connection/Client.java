@@ -19,12 +19,16 @@ public class Client {
 	private String userName;
 	private IObserver observer;
 	private Game game;
+	private ConnectionChat chat;
+	private String mensaje;
+	
 
 	public Client(String host, int port, String userName) {
 		this.host = host;
 		this.port = port;
 		this.userName = userName;
 		game = new Game();
+		mensaje = " ";
 	}
 
 	public Client(String host, int port) {
@@ -83,6 +87,7 @@ public class Client {
 		
 		
 	}
+	
 	
 	public void process(String data, boolean es) {
 
@@ -151,7 +156,7 @@ public class Client {
 		}
 
 		if (observer != null) {
-			observer.callback();
+			observer.callback(null);
 		}
 
 	}
@@ -160,12 +165,12 @@ public class Client {
 	
 	
 
-	public void process(String data) {
+	public void processTCP(String data, boolean chat) {
 
 		// FORMAT x;y;r;g;b;value;radius;userName (if cell is from user ) per line
 		// if the cell is of the client then the format will be
 		// an extra field, denoted with true
-
+		if(!chat) {
 		if (data.contains("error")) {
 			// TODO: Error while login
 			String[] info = data.split(":");
@@ -225,9 +230,15 @@ public class Client {
 			game.setCells(cells);
 
 		}
+		}else {
+			game.setState(State.Chat);
+			mensaje = data;
+		}
 
-		if (observer != null) {
-			observer.callback();
+		if (observer != null && chat) {
+			observer.callback(mensaje);
+		}else {
+			observer.callback(null);
 		}
 
 	}
@@ -245,9 +256,13 @@ public class Client {
 	public void move(String mov) {
 		connection.write("move:" + getUserName() + "=" + mov);
 	}
+	
+
 
 	public Game getGame() {
 		// TODO Auto-generated method stub
 		return game;
 	}
+	
+	
 }

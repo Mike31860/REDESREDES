@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import io.connection.ConnectionChat;
 import io.connection.music;
 import io.model.Cell;
 import io.model.Game;
@@ -30,7 +31,7 @@ public class GameViewStreaming implements Initializable{
     private Label cancionTxt;
 
     @FXML
-    private Label scoreTxt;
+    public Label scoreTxt;
 
     @FXML
     private Button enviar;
@@ -55,6 +56,8 @@ public class GameViewStreaming implements Initializable{
 
 	private Game game;
 	
+	private ConnectionChat chat;
+	
 	private Stage stage;
 	
 	private Parent parent;
@@ -62,8 +65,20 @@ public class GameViewStreaming implements Initializable{
     
     @FXML
     void enviarBut(ActionEvent event) {
+    	System.out.println("nickname");
+    	chat(mensaje.getText());
 
+        
     }
+    
+	public void chat(String data) {
+		chat.write(scoreTxt.getText() + ": " + data);
+	}
+	
+	public void conectarChat() throws Exception {
+		chat = new ConnectionChat(this);
+		chat.start();
+	}
 
     @FXML
     void elegirBut(ActionEvent event) throws InterruptedException {
@@ -115,6 +130,10 @@ public class GameViewStreaming implements Initializable{
     	
     	return respuesta;
     	
+    }
+    
+    public void append(String data) {
+    	ChatArea.appendText(data + System.lineSeparator());
     }
 
     public void dibujar() {
@@ -171,7 +190,7 @@ public class GameViewStreaming implements Initializable{
 			}
 		}
 
-		scoreTxt.setText("Score: " + game.getScore());
+		//scoreTxt.setText("Score: " + game.getScore());
 
 	}
 	
@@ -222,6 +241,12 @@ public class GameViewStreaming implements Initializable{
 		songsList.getItems().add("Highway to hell");
 		songsList.getItems().add("Back in black");
 		songsList.getItems().add("Don't stop me now");
+		try {
+			conectarChat();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
     

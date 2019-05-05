@@ -5,5 +5,5 @@ package io.connection;
  */
 public interface IObserver {
 
-    public void callback();
+    public void callback(String mensaje);
 }

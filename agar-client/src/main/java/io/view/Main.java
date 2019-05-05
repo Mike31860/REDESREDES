@@ -55,6 +55,11 @@ public class Main {
 	public Label getTitleNick() {
 		return titleNick;
 	}
+	
+	public void appendChat(String data) {
+		gameViewStreaming.append(data);
+
+	}
 
 	/**
 	 * @param root the root to set
@@ -156,7 +161,7 @@ public class Main {
 
 	}
 	
-	public void showGameViewStreaming(Game game) throws IOException {
+	public void showGameViewStreaming(Game game, String usu) throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
 		try {
@@ -164,6 +169,7 @@ public class Main {
 			AnchorPane pane = loader.load(getClass().getResourceAsStream("../view/gameStreaming.fxml"));
 			gameViewStreaming = new GameViewStreaming();
 			gameViewStreaming.init(pane, game);
+			gameViewStreaming.scoreTxt.setText(usu);
 			Stage stage = new Stage();
 			Scene scene = new Scene(pane);
 			stage.setScene(scene);

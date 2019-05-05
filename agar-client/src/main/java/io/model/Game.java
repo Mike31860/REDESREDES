@@ -2,6 +2,8 @@ package io.model;
 
 import java.util.ArrayList;
 
+import io.connection.Client;
+
 /**
  * Game
  */
@@ -11,8 +13,10 @@ public class Game {
     private State state;
     private int score;
 
+
     public Game(){
         cells=new ArrayList<>();
+       
     }
 
     
@@ -51,6 +55,7 @@ public class Game {
 	public void setScore(int score) {
 		this.score = score;
 	}
+
 
 
 	
