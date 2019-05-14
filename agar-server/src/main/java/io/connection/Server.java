@@ -190,27 +190,27 @@ public class Server {
 		
 		if(data.equals("barbie")) {
 			
-			respuesta = "./src/barbie.mp3";
+			respuesta = "./src/barbie.wav";
 			
 		} else if(data.equals("breakingfree")) {
 			
-			respuesta = "./src/breakingfree.mp3";
+			respuesta = "./src/breakingfree.wav";
 			
 		} else if(data.equals("salvame")) {
 			
-			respuesta = "./src/salvame.mp3";
+			respuesta = "./src/salvame.wav";
 			
 		} else if(data.equals("highwaytohell")) {
 			
-			respuesta = "./src/highwaytohell.mp3";
+			respuesta = "./src/highwaytohell.wav";
 			
 		} else if(data.equals("backinblack")) {
 			
-			respuesta = "./src/backinblack.mp3";
+			respuesta = "./src/backinblack.wav";
 			
 		} else if(data.equals("dontstopmenow")) {
 			
-			respuesta = "./src/dontstopmenow.mp3";
+			respuesta = "./src/dontstopmenow.wav";
 			
 		}
 			

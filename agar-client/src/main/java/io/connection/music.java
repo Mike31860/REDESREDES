@@ -1,13 +1,22 @@
 package io.connection;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
@@ -20,6 +29,8 @@ public class music extends Thread{
 	private  byte[] buffer;
 	private Player apl;
 	private boolean continuar;
+	public AudioInputStream audio1;
+	private Clip clip;
 		 
 	public music() {
 		
@@ -75,9 +86,38 @@ public class music extends Thread{
 		           }
 		           
 		           apl = new Player(new FileInputStream(ruta));
-		           apl.play(); 
+		          
+//		           apl.play(); 
+		           
 		           
 		           continuar = false;
+		           
+		           File file = new File(ruta);
+		           AudioInputStream stream = AudioSystem.getAudioInputStream(file);
+		           clip = AudioSystem.getClip();
+		           
+		           if(clip.isRunning())
+		           {
+		        	   clip.stop();
+		        	   clip.open(stream);
+		        	   clip.start();
+		        	 
+		          
+		           }
+		           else {
+		        	   clip.open(stream);
+		        	   clip.start();
+		        	 
+		           }
+		      
+		           // sleep to allow enough time for the clip to play
+		           Thread.sleep(500);
+		      
+		           stream.close();
+		           
+		           
+		           
+		           
 		        	   
 		           
 			} catch (FileNotFoundException | JavaLayerException | UnknownHostException e) {
@@ -89,6 +129,15 @@ public class music extends Thread{
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (UnsupportedAudioFileException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (LineUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			} 
 		}
 	}
@@ -97,6 +146,11 @@ public class music extends Thread{
 		
 		this.nombre = ruta;
 		
+	}
+	
+	public void parar()
+	{
+		clip.stop();
 	}
 
 }

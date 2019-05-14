@@ -59,10 +59,10 @@ public class ConectionUDP extends Thread {
 			            //System.out.println("Envio el datagrama");
 			            //System.out.println(mensaje);
 			            socketUDP.send(pregunta);
-			            byte[] RecogerServidor_bytes = new byte[1024];
+			            byte[] RecogerServidor_bytes = new byte[3072];
 			           
 			     
-			            servPaquete = new DatagramPacket(RecogerServidor_bytes,1024);
+			            servPaquete = new DatagramPacket(RecogerServidor_bytes,3072);
 			            socketUDP.receive(servPaquete);
 			          
 			           // System.out.println("Recibo la peticion");

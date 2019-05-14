@@ -1,4 +1,4 @@
-package io.view;
+﻿package io.view;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -235,13 +235,32 @@ public class GameView implements Initializable{
 	
 	@FXML
 	void selectBut(ActionEvent event) {
-		
-		String respuesta = seleccion();
+			if(musica!=null)
+    	{
+    		musica.parar();
+    		String respuesta = seleccion();    	
+        	musica = new music();
+        	musica.setMensaje(respuesta);
+        	System.out.println("Antes del hilo");  
+        	//musica.pausar();
+        	
+        	
+        	musica.start();
+        	
+    		
+    	}
+    	
+    	else {
+    	String respuesta = seleccion();    	
     	musica = new music();
     	musica.setMensaje(respuesta);
-    	System.out.println("Antes del hilo");
+    	System.out.println("Antes del hilo");  
     	//musica.pausar();
+    	
+    	
     	musica.start();
+    	
+    	}
 
     }
 	

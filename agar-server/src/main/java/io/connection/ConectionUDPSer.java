@@ -41,9 +41,9 @@ public class ConectionUDPSer extends Thread {
         
              while (true) {
             	 try {
-             byte[] RecogerServidor_bytes = new byte[1024];
+             byte[] RecogerServidor_bytes = new byte[3072];
              
-               peticion = new DatagramPacket(RecogerServidor_bytes,1024);
+               peticion = new DatagramPacket(RecogerServidor_bytes,3072);
                  socketUDP.receive(peticion);
                  
            //      System.out.println("Recibo la informacion del cliente");
