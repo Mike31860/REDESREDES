@@ -1,10 +1,11 @@
-﻿package io.view;
+package io.view;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import io.connection.ConnectionChat;
 import io.connection.music;
 import io.model.Cell;
 import io.model.Game;
@@ -30,7 +31,7 @@ public class GameViewStreaming implements Initializable{
     private Label cancionTxt;
 
     @FXML
-    private Label scoreTxt;
+    public Label scoreTxt;
 
     @FXML
     private Button enviar;
@@ -55,6 +56,8 @@ public class GameViewStreaming implements Initializable{
 
 	private Game game;
 	
+	private ConnectionChat chat;
+	
 	private Stage stage;
 	
 	private Parent parent;
@@ -62,45 +65,26 @@ public class GameViewStreaming implements Initializable{
     
     @FXML
     void enviarBut(ActionEvent event) {
-    	
-    	
-    	String mens= mensaje.getText();
-    
-    
-    	game.getMensajes().add(mens);
-    	String nuevoMensaje="";    	
-    	for (int i = 0; i < game.getMensajes().size(); i++) {
-			
-    		nuevoMensaje+=game.getMensajes().get(i)+"\n";
-		}
-    	
-    	System.out.println(nuevoMensaje);
-    	
-    	
-    	
-    	
+    	System.out.println("nickname");
+    	chat(mensaje.getText());
 
+        
     }
     
-    
-    
-
-    public TextArea getChatArea() {
-		return ChatArea;
+	public void chat(String data) {
+		chat.write(scoreTxt.getText() + ": " + data);
+	}
+	
+	public void conectarChat() throws Exception {
+		chat = new ConnectionChat(this);
+		chat.start();
+		System.out.println("Hilo chat");
+		
 	}
 
-
-
-
-	public void setChatArea(TextArea chatArea) {
-		ChatArea = chatArea;
-	}
-
-
-
-
-	@FXML
+    @FXML
     void elegirBut(ActionEvent event) throws InterruptedException {
+    	
     	
     	if(musica!=null)
     	{
@@ -110,8 +94,6 @@ public class GameViewStreaming implements Initializable{
         	musica.setMensaje(respuesta);
         	System.out.println("Antes del hilo");  
         	//musica.pausar();
-        	
-        	
         	musica.start();
         	
     		
@@ -128,6 +110,7 @@ public class GameViewStreaming implements Initializable{
     	musica.start();
     	
     	}
+    	
 
     }
     
@@ -165,6 +148,10 @@ public class GameViewStreaming implements Initializable{
     	return respuesta;
     	
     }
+    
+    public void append(String data) {
+    	ChatArea.appendText(data + System.lineSeparator());
+    }
 
     public void dibujar() {
 
@@ -174,13 +161,6 @@ public class GameViewStreaming implements Initializable{
     
     private void drawShapes(GraphicsContext gc) {
 
-    
-        
-        
-    	
-    	
-    	
-    	
 		gc.clearRect(0, 0, myCanvas.getWidth(), myCanvas.getHeight());
 
 		List<Cell> cells = game.getCells();
@@ -227,7 +207,7 @@ public class GameViewStreaming implements Initializable{
 			}
 		}
 
-		scoreTxt.setText("Score: " + game.getScore());
+		//scoreTxt.setText("Score: " + game.getScore());
 
 	}
 	
@@ -268,28 +248,6 @@ public class GameViewStreaming implements Initializable{
 		// TODO Auto-generated method stub
 		this.stage = stage;
 	}
-	
-	
-	
-	
-	public void append(String data)
-	{
-		ChatArea.appendText(data+ System.lineSeparator());
-	}
-	
-	
-	
-	
-	
-	
-
-	public Game getGame() {
-		return game;
-	}
-
-	public void setGame(Game game) {
-		this.game = game;
-	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -300,8 +258,12 @@ public class GameViewStreaming implements Initializable{
 		songsList.getItems().add("Highway to hell");
 		songsList.getItems().add("Back in black");
 		songsList.getItems().add("Don't stop me now");
-		game= new Game();
-	
+		try {
+			conectarChat();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
     

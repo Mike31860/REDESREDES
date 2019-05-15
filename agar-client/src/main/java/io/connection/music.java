@@ -4,14 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -86,11 +84,9 @@ public class music extends Thread{
 		           }
 		           
 		           apl = new Player(new FileInputStream(ruta));
-		          
-//		           apl.play(); 
+		  //         apl.play(); 
 		           
-		           
-		           continuar = false;
+                  continuar = false;
 		           
 		           File file = new File(ruta);
 		           AudioInputStream stream = AudioSystem.getAudioInputStream(file);
@@ -114,9 +110,6 @@ public class music extends Thread{
 		           Thread.sleep(500);
 		      
 		           stream.close();
-		           
-		           
-		           
 		           
 		        	   
 		           
@@ -147,10 +140,10 @@ public class music extends Thread{
 		this.nombre = ruta;
 		
 	}
-	
+
 	public void parar()
 	{
 		clip.stop();
 	}
-
+	
 }
